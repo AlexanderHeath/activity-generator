@@ -20,9 +20,6 @@ import java.util.List;
  * Class to perform activities on the host system and generate data describing the activities.
  */
 public class ActivityGenerator {
-    private static final String DESCRIPTOR_CREATE = "CREATE";
-    private static final String DESCRIPTOR_MODIFY = "MODIFY";
-    private static final String DESCRIPTOR_DELETE = "DELETE";
     private static final String NONE = "";
 
     /**
@@ -66,7 +63,7 @@ public class ActivityGenerator {
      */
     public FileActivity writeFile(Path path) throws IOException {
         FileActivity fileActivity = new FileActivity();
-        fileActivity.setDescriptor(DESCRIPTOR_CREATE);
+        fileActivity.setDescriptor(FileActivity.DESCRIPTOR_CREATE);
         String timestamp = Instant.now().toString();
         fileActivity.setTimestamp(timestamp);
         Path created = Files.createFile(path);
@@ -85,7 +82,7 @@ public class ActivityGenerator {
      */
     public FileActivity modifyFile(Path path, byte[] modification) throws IOException {
         FileActivity fileActivity = new FileActivity();
-        fileActivity.setDescriptor(DESCRIPTOR_MODIFY);
+        fileActivity.setDescriptor(FileActivity.DESCRIPTOR_MODIFY);
         String timestamp = Instant.now().toString();
         fileActivity.setTimestamp(timestamp);
         Path modified = Files.write(path, modification, StandardOpenOption.APPEND);
@@ -103,7 +100,7 @@ public class ActivityGenerator {
      */
     public FileActivity deleteFile(Path path) throws IOException {
         FileActivity fileActivity = new FileActivity();
-        fileActivity.setDescriptor(DESCRIPTOR_DELETE);
+        fileActivity.setDescriptor(FileActivity.DESCRIPTOR_DELETE);
         String timestamp = Instant.now().toString();
         fileActivity.setTimestamp(timestamp);
         Files.delete(path);
@@ -129,7 +126,7 @@ public class ActivityGenerator {
      * @param protocol The protocol to be used for the network connection.
      * @param message  The data to be sent to the destination.
      * @return NetworkActivity
-     * @throws IOException if file IO fails (ex file doesn't exist)
+     * @throws IOException if network IO fails (ex can't establish connection)
      */
     public NetworkActivity connect(String destIp, int destPort, Protocol protocol, String message) throws IOException {
         NetworkActivity netActivity = new NetworkActivity();

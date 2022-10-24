@@ -1,7 +1,9 @@
 package logger;
 
+import activities.Activity;
+
 public interface ActivityLogger extends AutoCloseable {
 
-    void logActivity(Object activity) throws ActivityParseException;
+    void logActivity(Activity activity) throws ActivityParseException;
 
 }

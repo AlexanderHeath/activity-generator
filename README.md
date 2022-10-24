@@ -7,16 +7,16 @@
 The "create a framework" statement in the assignment instructions made me think about something that could
 potentially be used in the EDR agent test-suite, such as a library. Therefore, I kept dependencies
 minimal and tried to design it such that client code would have options regarding how to use the classes. However, since
-the requirements mention the program triggering activities, I added a CLI for demonstration & testing (see **Main**). The CLI
+the requirements mention the program triggering activities, I added a CLI for demonstration & testing (see **Main**).
+The CLI
 could be removed, the project could be built as a library, a webservice interface could be added, etc.
 
 The **ActivityGenerator** and **JsonActivityLogger** are the core classes.
 The **Activity** models serve as both the contract between modules and as a schema for data types of the log file.
 If a new field is to be added to the log file, it can be added to the model and set in the Generator. The Logger does
 not need to change. I chose the approach of using an existing object mapper for speed of development and the fact that
-Jackson library has support for csv, yaml, & others. Therefore, support for additional log file types could be added easily.
-
-
+Jackson library has support for csv, yaml, & others. Therefore, support for additional log file types could be added
+easily.
 
 ### Build & Run
 
@@ -34,7 +34,8 @@ or, if necessary
 mvn package -Dmaven.test.skip
 ````
 
-from the root project directory will generate **activity-generator-1.0-SNAPSHOT-jar-with-dependencies.jar** in the **./target** directory.
+from the root project directory will generate **activity-generator-1.0-SNAPSHOT-jar-with-dependencies.jar** in the **
+./target** directory.
 
 The jar file can be executed like so:
 
@@ -75,9 +76,10 @@ usage: activity-generator
 - [ ] consider allow list for executable files
 - [ ] review error handling
 - [ ] integration tests
-- [ ] considerations for log roll over, safeguards for creating two loggers with same log file path
-- [ ] changes are needed for some tests to be system independent
+- [ ] harden unit tests (sad path, edge cases, etc)
+- [ ] changes are needed for some tests to be system independent 
 - [ ] mac testing
+- [ ] considerations for log roll over, safeguards for creating two loggers with same log file path, etc
 
 #### Known Issues
 
