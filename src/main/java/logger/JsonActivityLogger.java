@@ -1,5 +1,6 @@
 package logger;
 
+import activities.Activity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,7 +15,8 @@ public class JsonActivityLogger implements ActivityLogger {
     private final Path logFile;
     private boolean firstLine = true;
 
-    //TODO considerations for log roll over, safeguards for creating two loggers with same log file path, etc
+    //TODO considerations for log roll over, safeguards for creating two loggers with same log file path,
+    // line separator included or not, etc
     public JsonActivityLogger(ObjectMapper mapper, Path logFile) {
         this.mapper = mapper;
         try {
@@ -28,12 +30,13 @@ public class JsonActivityLogger implements ActivityLogger {
     }
 
     /**
+     * Writes a single activity to the log.
      * Log writes are not synchronized by this class. This method should be called serially.
      *
      * @param activity data to be written to the log
      */
     @Override
-    public void logActivity(Object activity) throws ActivityParseException {
+    public void logActivity(Activity activity) throws ActivityParseException {
         try {
             String actString = mapper.writeValueAsString(activity);
             if (!firstLine) {
